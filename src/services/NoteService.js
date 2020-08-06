@@ -1,31 +1,31 @@
-import http from "../http-common";
-
+import axios from "axios";
+axios.defaults.baseURL = "http://172.17.167.245:30008";
 const getAll = () => {
-  return http.get("/notes");
+  return axios.get("/notes");
 };
 
 const get = id => {
-  return http.get(`/notes/${id}`);
+  return axios.get(`/notes/${id}`);
 };
 
 const create = data => {
-  return http.post("/notes", data);
+  return axios.post("/notes", data);
 };
 
 const update = (id, data) => {
-  return http.put(`/notes/${id}`, data);
+  return axios.put(`/notes/${id}`, data);
 };
 
 const remove = id => {
-  return http.delete(`/notes/${id}`);
+  return axios.delete(`/notes/${id}`);
 };
 
 const removeAll = () => {
-  return http.delete(`/notes`);
+  return axios.delete(`/notes`);
 };
 
 const findByTitle = title => {
-  return http.get(`/notes?title=${title}`);
+  return axios.get(`/notes?title=${title}`);
 };
 
 export default {

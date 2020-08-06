@@ -81,7 +81,7 @@ const NotesList = () => {
         ) : (
           <div>
             <br />
-            <p>Please click on a Note...</p>
+            <p>Please click on a Note11...</p>
           </div>
         )}
       </div>
