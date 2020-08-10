@@ -11,19 +11,6 @@ pipeline {
         git 'https://github.com/sankaraspiresys/reactappfrontend.git'
       }
     }
-    stage('SonarQube Analysis') {
-      steps {
-        withSonarQubeEnv('SonarQube') {
-            sh '''
-            ${scannerHome}/bin/sonar-scanner \
-            -D sonar.projectKey=my-react-app \
-            -D sonar.projectName=my-react-app \
-            -D sonar.projectVersion=1.0 \
-            -D sonar.sources=./src \
-            '''
-        }
-      }
-    }
     stage('Building Docker Image for Frontend') {
       steps{
         script {
