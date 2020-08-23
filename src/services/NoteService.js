@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.baseURL = "http://172.17.167.245:30008";
+axios.defaults.baseURL = "http://172.18.0.3:30008";
 const getAll = () => {
   return axios.get("/notes");
 };
@@ -11,6 +11,8 @@ const get = id => {
 const create = data => {
   return axios.post("/notes", data);
 };
+
+
 
 const update = (id, data) => {
   return axios.put(`/notes/${id}`, data);

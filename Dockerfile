@@ -14,5 +14,5 @@ COPY . .
 FROM nginx
 COPY --from=build-stage /usr/src/app/build /usr/share/nginx/html
 EXPOSE 80
-RUN rm -rf /etc/nginx/conf.d/default.conf
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+#RUN rm -rf /etc/nginx/conf.d/default.conf
+#COPY ./nginx.conf /etc/nginx/conf.d/default.conf
