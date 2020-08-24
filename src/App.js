@@ -15,7 +15,7 @@ function App() {
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <a href="/notes" className="navbar-brand">
-            Notes
+            Notes App
           </a>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
