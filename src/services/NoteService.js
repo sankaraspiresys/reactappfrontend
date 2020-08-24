@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.baseURL = "http://172.18.0.3:30008";
+axios.defaults.baseURL = "http://34.121.33.239:3000";
 const getAll = () => {
   return axios.get("/notes");
 };
