@@ -37,7 +37,7 @@ const NotesList = () => {
     <div className="list row">
       
       <div className="col-md-6">
-        <h4>Notes List Test</h4>
+        <h4>Notes List</h4>
 
         <ul className="list-group">
           {notes &&
