@@ -5,11 +5,10 @@ metadata:
   labels:
     app: react-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - port: 80
       targetPort: 80
-      nodePort: 30005
   selector:
     app: reactapp
     type: frontend
