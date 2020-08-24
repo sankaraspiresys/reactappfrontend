@@ -1,36 +1,39 @@
 pipeline {
-  environment {
-    registry = "sankardockerdev/my-react-app"
-    registryCredential = 'docker-hub-credentials'
-    dockerImage = ''
-  }
   agent any
-  stages {
-    stage('Pull Frontend Code From GitHub') {
-      steps {
-        git 'https://github.com/sankaraspiresys/reactappfrontend.git'
-      }
-    }
-    stage('Building Docker Image for Frontend') {
-      steps{
-        script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
-        }
-      }
-    }
-    stage('Push Image To Docker Hub for Frontend') {
-      steps{
-        script {
-          /* Finally, we'll push the image with two tags:
-                   * First, the incremental build number from Jenkins
-                   * Second, the 'latest' tag.
-                   * Pushing multiple tags is cheap, as all the layers are reused. */
-          docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-              //dockerImage.push("${env.BUILD_NUMBER}")
-              dockerImage.push("latest")
-          }
-        }
-      }
-    }
+  environment {
+      PROJECT_ID = 'snappy-surf-285008'
+      CLUSTER_NAME = 'cluster-1'
+      LOCATION = 'us-central1-c'
+      CREDENTIALS_ID = 'gke'
   }
+  stages {
+    stage("Checkout code") {
+      steps {
+          checkout scm
+      }
+    }
+    stage("Build image") {
+      steps {
+          script {
+              myapp = docker.build("sankardockerdev/my-react-app:${env.BUILD_ID}")
+          }
+      }
+    }
+    stage("Push image") {
+      steps {
+          script {
+              docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                      myapp.push("latest")
+                      myapp.push("${env.BUILD_ID}")
+              }
+          }
+      }
+    }
+    stage('Deploy to GKE') {
+      steps{
+          sh "sed -i 's/my-react-app:latest/my-react-app:${env.BUILD_ID}/g' deployment.yaml"
+          step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+      }
+    }
+  }    
 }
