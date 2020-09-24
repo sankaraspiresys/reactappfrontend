@@ -23,7 +23,7 @@ spec:
             valueFrom: 
               configMapKeyRef:
                 name: service-url 
-                key: url
+                key: URL
 ---
 apiVersion: v1
 kind: Service
