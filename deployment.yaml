@@ -18,6 +18,12 @@ spec:
       - name: reactapp-container
         image: sankardockerdev/my-react-app:latest
         imagePullPolicy: "Always"
+        env:
+          - name: API_URL
+            valueFrom: 
+              configMapKeyRef:
+                name: service-url 
+                key: url
 ---
 apiVersion: v1
 kind: Service
